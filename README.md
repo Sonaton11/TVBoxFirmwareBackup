@@ -57,7 +57,7 @@ Backup সরাসরি Phone-এর storage-এ সংরক্ষণ হব�
 📦 Termux Setup
 
 Termux খুলে নিচের একটি Code Box-এর সব command একসাথে Copy করে Paste করুন:
-
+```bash
 pkg update -y
 pkg upgrade -y
 pkg install -y git android-tools
@@ -76,8 +76,10 @@ Phone storage-এর files/folders দেখা গেলে storage permission 
 📥 Step 2 — GitHub থেকে Tool Install
 
 নিচের command-টি একবারে Copy → Paste → Enter করুন:
-
-cd ~ && git clone https://github.com/Sonaton11/TVBoxFirmwareBackup.git && cd TVBoxFirmwareBackup && chmod +x backup.sh
+```bash
+cd ~ &&
+```bash
+git clone https://github.com/Sonaton11/TVBoxFirmwareBackup.git && cd TVBoxFirmwareBackup && chmod +x backup.sh
 
 সব ঠিক থাকলে repository folder-এর ভিতরে চলে যাবেন।
 
@@ -106,11 +108,11 @@ TV Box IP:example :
 192.168.0.217
 
 Termux-এ:
-
+```bash
 adb connect 192.168.0.217:5555
 
 তারপর:
-
+```bash
 adb devices
 
 সঠিকভাবে connected হলে:
@@ -126,19 +128,19 @@ adb devices
 🔍 Step 4 — ADB Connection Test
 
 চালান:
-
+```bash
 adb shell
 
 TV Box shell খুললে:
-
+```bash
 exit
 
 তারপর:
-
+```bash
 adb devices
 
 Device-এর পাশে অবশ্যই:
-
+```bash
 device
 
 থাকতে হবে।
