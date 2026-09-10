@@ -1,52 +1,80 @@
-# TVBoxFirmwareBackup
-TV Box firmware backup tool
 📺 TV Box Firmware Backup Tool
 
-Termux ব্যবহার করে Android TV Box থেকে firmware backup নেওয়ার জন্য এই tool।
+🔧 Android TV Box Firmware Backup — Termux Based
 
-«⚠️ Important: এই tool শুধুমাত্র Backup করার জন্য। Termux থেকে কোনো Restore বা Flash করা হয় না। Backup নেওয়ার পর PC-তে appropriate/vendor flashing tool ব্যবহার করে firmware flash করতে হবে।»
+এই Tool ব্যবহার করে Android Phone-এর Termux থেকে একটি working Android TV Box-এর firmware backup নেওয়া যাবে।
+
+Backup সরাসরি Phone-এর storage-এ সংরক্ষণ হবে। পরে backup folder PC-তে নিয়ে গিয়ে appropriate/vendor flashing tool ব্যবহার করে compatible TV Box-এ firmware flash করা যাবে।
+
+«🟢 Backup Only
+🔴 No Restore / No Flash from Termux»
+
+---
+
+✨ Features
+
+- 📱 Phone + Termux based
+- 📺 Android TV Box ADB support
+- 🔍 Automatic hardware information detection
+- 🔍 Model / Board / SoC detection
+- 💾 Automatic partition detection
+- 🚀 Boot partition backup
+- ⚙️ Android firmware partition backup
+- 📦 "super.img" detection
+- 🔧 Bootloader partitions আলাদা করে backup
+- 🛡️ Device-specific partitions বাদ দেওয়া
+- 🚫 Userdata / cache / personal data বাদ দেওয়া
+- 🔐 Security-related partitions normal flash list থেকে বাদ
+- 🧮 SHA256 checksum তৈরি
+- 📋 Hardware report তৈরি
+- 📋 Partition list তৈরি
+- 📋 Flash candidate list তৈরি
+- 📑 Complete backup report
 
 ---
 
 📋 Requirements
 
-যা লাগবে:
+Phone
 
 - Android Phone
 - Termux
-- TV Box
-- TV Box-এ ADB access
-- Root access on TV Box
-- Phone-এ পর্যাপ্ত free storage
+- পর্যাপ্ত storage
+
+TV Box
+
+- Working Android TV Box
+- ADB enabled
+- Root access
 - Wi-Fi ADB অথবা USB ADB
 
 ---
 
-🚀 Step 1 — GitHub থেকে Repository Download করুন
+🚀 Installation
 
-Termux খুলুন।
+1️⃣ Termux Install করুন
 
-প্রথমে package update করুন:
+Phone-এ Termux খুলুন।
+
+তারপর:
 
 pkg update
 
-তারপর Git এবং ADB install করুন:
+ADB এবং Git install করুন:
 
 pkg install git android-tools
 
 ---
 
-📥 Step 2 — GitHub Repository Clone করুন
+📥 2️⃣ GitHub Repository Clone করুন
 
 Home directory-তে যান:
 
 cd ~
 
-তারপর repository clone করুন:
+তারপর এই repository clone করুন:
 
-git clone https://github.com/YOUR-GITHUB-USERNAME/TVBoxFirmwareBackup.git
-
-«"YOUR-GITHUB-USERNAME" এর জায়গায় repository owner-এর GitHub username লিখুন।»
+git clone https://github.com/Sonaton11/TVBoxFirmwareBackup.git
 
 Repository folder-এ ঢুকুন:
 
@@ -56,53 +84,55 @@ cd TVBoxFirmwareBackup
 
 ls
 
-এখানে অবশ্যই দেখতে হবে:
+সেখানে দেখতে পাবেন:
 
 backup.sh
 README.md
 
 ---
 
-🔐 Step 3 — Backup Script চালানোর Permission দিন
+🔐 3️⃣ Backup Script Permission দিন
 
-প্রথমবার শুধু একবার:
+একবার চালান:
 
 chmod +x backup.sh
 
 ---
 
-📱 Step 4 — Phone Storage Permission দিন
+📱 4️⃣ Phone Storage Permission দিন
 
-Termux-কে Phone storage access দিন:
+Termux-কে storage permission দিতে:
 
 termux-setup-storage
 
 Android permission চাইলে:
 
-Allow চাপুন।
+✅ Allow
+
+চাপুন।
 
 তারপর পরীক্ষা করুন:
 
 ls /sdcard
 
-Phone storage-এর ফাইল/ফোল্ডার দেখা গেলে storage permission ঠিক আছে।
+Phone storage-এর folder দেখা গেলে সব ঠিক আছে।
 
 ---
 
-📺 Step 5 — TV Box-এ ADB চালু করুন
+📺 5️⃣ TV Box ADB Connect করুন
 
 TV Box-এ:
 
-Developer Options → USB Debugging / ADB Debugging → ON
+Developer Options → ADB / USB Debugging → ON
 
-Wi-Fi ADB ব্যবহার করলে TV Box এবং Phone একই Wi-Fi network-এ থাকতে হবে।
+Wi-Fi ADB ব্যবহার করলে Phone এবং TV Box একই network-এ থাকতে হবে।
 
 উদাহরণ:
 
-TV Box IP:
+TV Box IP: example :
 192.168.0.211
 
-Termux থেকে:
+Termux-এ:
 
 adb connect 192.168.0.211:5555
 
@@ -110,41 +140,39 @@ adb connect 192.168.0.211:5555
 
 adb devices
 
-সঠিকভাবে connected হলে এমন দেখা যাবে:
+সঠিকভাবে connected হলে:
 
 192.168.0.211:5555    device
 
-যদি প্রথমবার authorization message TV Box-এ আসে, তাহলে Allow দিন।
+দেখাবে।
 
 ---
 
-🔍 Step 6 — ADB Connection পরীক্ষা করুন
+🔍 6️⃣ ADB Connection Test
 
 চালান:
 
 adb shell
 
-TV Box-এর shell খুললে:
+TV Box shell খুললে:
 
 exit
 
-দিয়ে বের হয়ে আসুন।
-
-তারপর:
+তারপর আবার:
 
 adb devices
 
-আবার নিশ্চিত করুন যে device-এর পাশে:
+Device-এর পাশে অবশ্যই:
 
 device
 
-লেখা আছে।
+থাকতে হবে।
 
 ---
 
-💾 Step 7 — Firmware Backup শুরু করুন
+💾 7️⃣ Firmware Backup শুরু করুন
 
-Repository folder-এর ভিতরে থাকুন:
+Repository folder-এ থাকুন:
 
 cd ~/TVBoxFirmwareBackup
 
@@ -152,36 +180,118 @@ cd ~/TVBoxFirmwareBackup
 
 ./backup.sh
 
-এখন script নিজে থেকে TV Box-এর information এবং partition layout পড়বে।
+এখন Tool নিজে থেকে TV Box scan করবে।
 
 ---
 
-🤖 Script কী কী করবে?
+🤖 Automatic Detection
 
-Script automatically:
+Tool automatically পড়বে:
 
-- TV Box-এর Manufacturer পড়বে
-- Model পড়বে
-- Board পড়বে
-- Hardware পড়বে
-- SoC/Platform information পড়বে
-- Android version পড়বে
-- CPU ABI পড়বে
-- Partition layout পড়বে
-- Boot partition শনাক্ত করবে
-- Android firmware partition শনাক্ত করবে
-- Dynamic "super" partition থাকলে শনাক্ত করবে
-- Bootloader partition আলাদা করে শনাক্ত করবে
-- SHA256 checksum তৈরি করবে
-- Backup report তৈরি করবে
+Manufacturer
+Brand
+Model
+Device
+Board
+Hardware
+Platform
+SoC
+Android Version
+SDK
+Build
+CPU ABI
+Kernel
+Partition Layout
 
 ---
 
-🛡️ কোন Data Backup করা হবে না?
+💽 Backup করা হবে
 
-Device-specific data সাধারণ firmware backup-এর অংশ হিসেবে নেওয়া হবে না।
+🟢 BOOT
+
+Boot-related partitions:
+
+boot
+boot_a
+boot_b
+vendor_boot
+init_boot
+recovery
+dtbo
+vbmeta
+vbmeta_system
+vbmeta_vendor
+
+TV Box-এ যেগুলো থাকবে শুধু সেগুলোই backup হবে।
+
+---
+
+🔵 FIRMWARE
+
+Android firmware partitions:
+
+super
+system
+system_a
+system_b
+system_ext
+vendor
+vendor_a
+vendor_b
+product
+product_a
+product_b
+odm
+odm_a
+odm_b
+
+যে partition TV Box-এ নেই সেটি automatically skip হবে।
+
+---
+
+🟡 BOOTLOADER_REVIEW
+
+কিছু TV Box-এর boot করার জন্য bootloader প্রয়োজন হতে পারে।
 
 যেমন:
+
+preloader
+u-boot
+uboot
+lk
+abl
+xbl
+xbl_config
+bootloader
+spl
+loader
+
+এগুলো আলাদা folder-এ রাখা হবে:
+
+BOOTLOADER_REVIEW/
+
+⚠️ গুরুত্বপূর্ণ
+
+এই folder-এর files অন্য Box-এ সরাসরি flash করা যাবে না।
+
+আগে verify করতে হবে:
+
+Model
+Board
+Hardware Revision
+SoC
+Storage
+Vendor
+
+সব compatible কিনা।
+
+---
+
+🔴 Device-Specific Data বাদ থাকবে
+
+অন্য Box-এর identity বা personal/device-specific data clone করার জন্য Tool তৈরি করা হয়নি।
+
+সাধারণভাবে বাদ থাকবে:
 
 userdata
 data
@@ -197,57 +307,39 @@ proinfo
 calibration
 device information
 MAC-related data
-serial-related data
-
-এগুলো অন্য TV Box-এ ব্যবহার করার জন্য নয়।
+Serial-related data
 
 ---
 
-⚠️ Bootloader সম্পর্কে গুরুত্বপূর্ণ
+🔐 Security Partitions
 
-কিছু TV Box-এ boot করার জন্য bootloader partition প্রয়োজন হতে পারে।
+Security-related partitions normal flash candidate হিসেবে রাখা হবে না।
 
 যেমন:
 
-preloader
-u-boot
-uboot
-lk
-abl
-xbl
-xbl_config
-bootloader
-spl
-loader
+tee
+tz
+trustzone
+keymaster
+keystore
 
-এগুলো সাধারণ firmware partition থেকে আলাদা করে রাখা হবে:
+এগুলো:
 
-BOOTLOADER_REVIEW/
+SECURITY_REVIEW/
 
-«⚠️ BOOTLOADER_REVIEW-এর কোনো image অন্য Box-এ সরাসরি flash করবেন না।»
+এর মধ্যে শুধু information হিসেবে flag করা হবে।
 
-Exact:
-
-- Model
-- Board
-- Hardware revision
-- SoC
-- Storage type
-- Vendor
-
-মিলিয়ে PC flashing-এর আগে যাচাই করতে হবে।
+«⚠️ Security-related data অন্য device-এ flash করা উচিত নয়।»
 
 ---
 
-📂 Step 8 — Backup কোথায় পাওয়া যাবে?
+📂 Backup Location
 
-Backup Phone-এর internal storage-এ সরাসরি তৈরি হবে:
+Backup সরাসরি Phone-এর storage-এ যাবে:
 
 /sdcard/TVBoxFirmware/
 
-এর ভিতরে timestamp সহ folder তৈরি হবে:
-
-TVBOX_YYYYMMDD_HHMMSS/
+প্রতিবার নতুন timestamp folder তৈরি হবে।
 
 উদাহরণ:
 
@@ -255,13 +347,11 @@ TVBOX_YYYYMMDD_HHMMSS/
 
 ---
 
-📁 Backup Folder Structure
-
-Backup শেষ হলে folder-এর ভিতরে থাকবে:
+📁 Backup Structure
 
 TVBOX_YYYYMMDD_HHMMSS/
 │
-├── BOOT/
+├── 📁 BOOT/
 │   ├── boot.img
 │   ├── recovery.img
 │   ├── vendor_boot.img
@@ -269,7 +359,7 @@ TVBOX_YYYYMMDD_HHMMSS/
 │   ├── dtbo.img
 │   └── vbmeta.img
 │
-├── FIRMWARE/
+├── 📁 FIRMWARE/
 │   ├── super.img
 │   ├── system.img
 │   ├── vendor.img
@@ -277,139 +367,153 @@ TVBOX_YYYYMMDD_HHMMSS/
 │   ├── odm.img
 │   └── system_ext.img
 │
-├── BOOTLOADER_REVIEW/
-│   ├── preloader.img
-│   ├── u-boot.img
-│   ├── lk.img
-│   ├── abl.img
-│   └── ...
+├── 📁 BOOTLOADER_REVIEW/
 │
-├── SECURITY_REVIEW/
+├── 📁 SECURITY_REVIEW/
 │
-├── HARDWARE.txt
-├── partition-list.txt
-├── FIRMWARE_MANIFEST.txt
-├── FLASH_CANDIDATES.txt
-├── SHA256SUMS
-└── BACKUP_REPORT.txt
+├── 📄 HARDWARE.txt
+├── 📄 partition-list.txt
+├── 📄 FIRMWARE_MANIFEST.txt
+├── 📄 FLASH_CANDIDATES.txt
+├── 📄 SHA256SUMS
+└── 📄 BACKUP_REPORT.txt
 
-«আপনার TV Box-এর partition layout অনুযায়ী সব file থাকবে না। কোনো partition না থাকলে সেটি automatically skip হবে।»
+«সব TV Box-এ একই partition থাকে না। তাই আপনার Box-এর layout অনুযায়ী files কম-বেশি হতে পারে।»
 
 ---
 
-🔎 Step 9 — Backup সফল হয়েছে কিনা পরীক্ষা করুন
+🔎 Backup Check করুন
 
 Backup শেষ হওয়ার পরে:
 
 ls /sdcard/TVBoxFirmware/
 
-তারপর সর্বশেষ backup folder-এ ঢুকুন:
+Backup folder-এ যান:
 
-cd /sdcard/TVBoxFirmware/
-ls
+cd /sdcard/TVBoxFirmware/TVBOX_YYYYMMDD_HHMMSS
 
-তারপর:
-
-cd TVBOX_YYYYMMDD_HHMMSS
-
-নিজের তৈরি timestamp অনুযায়ী folder-এর নাম ব্যবহার করুন।
-
-তারপর:
+Backup Report:
 
 cat BACKUP_REPORT.txt
 
-Hardware information দেখতে:
+Hardware Information:
 
 cat HARDWARE.txt
 
-Partition list দেখতে:
+Partition List:
 
 cat partition-list.txt
 
-Flash candidate list দেখতে:
+Flash Candidates:
 
 cat FLASH_CANDIDATES.txt
 
-Checksum দেখতে:
+SHA256:
 
 cat SHA256SUMS
 
 ---
 
-💻 Step 10 — PC-তে Backup নেওয়া
+💻 PC-তে Backup নেওয়া
 
-Backup সম্পূর্ণ হওয়ার পরে Phone থেকে পুরো folder PC-তে copy করুন।
+Backup শেষ হলে পুরো:
 
-উদাহরণ:
+TVBOX_YYYYMMDD_HHMMSS/
 
-TVBOX_20260910_163000/
+folder Phone থেকে PC-তে copy করুন।
 
-পুরো folder-টি রাখুন।
-
-বিশেষ করে এগুলো হারাবেন না:
+বিশেষ করে এগুলো সংরক্ষণ করুন:
 
 HARDWARE.txt
 partition-list.txt
-FLASH_CANDIDATES.txt
 FIRMWARE_MANIFEST.txt
+FLASH_CANDIDATES.txt
 SHA256SUMS
 BACKUP_REPORT.txt
 
 ---
 
-⚡ PC থেকে Flash করার আগে
+⚡ PC থেকে Flash
 
-সরাসরি image flash করবেন না।
+PC-তে নেওয়ার পরে আগে:
 
-প্রথমে PC-তে:
+1. Hardware মিলান
 
-1. "HARDWARE.txt" দেখুন
-2. "partition-list.txt" দেখুন
-3. Target TV Box-এর board/model/revision মিলান
-4. Storage capacity মিলান
-5. SoC/platform মিলান
-6. Vendor flashing method নির্ধারণ করুন
-7. "FLASH_CANDIDATES.txt" দেখুন
-8. "BOOTLOADER_REVIEW" আলাদা করে যাচাই করুন
-9. SHA256 দিয়ে backup files verify করুন
+Model
+Board
+SoC
+Hardware Revision
+Storage
+Vendor
 
-তারপর appropriate PC/vendor flashing tool ব্যবহার করুন।
+2. Partition layout মিলান
 
----
+partition-list.txt
 
-🚫 এই Tool কী করে না?
+দেখুন।
 
-এই project:
+3. Normal firmware candidates দেখুন
 
-- ❌ Termux থেকে Restore করে না
-- ❌ Termux থেকে Flash করে না
-- ❌ অন্য Box-এ automatically firmware install করে না
-- ❌ Device identity copy করার চেষ্টা করে না
-- ❌ MAC/Serial/Userdata clone করে না
-- ❌ Unknown partition blindly flash করার সিদ্ধান্ত নেয় না
+FLASH_CANDIDATES.txt
+
+4. SHA256 verify করুন
+
+SHA256SUMS
+
+5. তারপর appropriate PC/vendor flashing tool ব্যবহার করুন।
 
 ---
 
-🔐 Safety
+🚫 Termux থেকে Flash করা হয় না
 
-Firmware backup নেওয়ার সময় source TV Box-এর original device-specific data সংরক্ষণ না করাই ভালো।
+এই project ইচ্ছাকৃতভাবে:
 
-একই board/model/revision না মিললে backup অন্য TV Box-এ flash করবেন না।
+❌ Restore নেই
+❌ Flash নেই
+❌ Erase command নেই
+❌ Factory reset নেই
+❌ Device identity clone নেই
+
+Termux-এর কাজ শুধু:
+
+TV Box
+   ↓
+ADB
+   ↓
+Partition Detection
+   ↓
+Backup
+   ↓
+Phone Storage
+   ↓
+PC
+   ↓
+Appropriate Flashing Tool
+
+---
+
+⚠️ Compatibility Warning
+
+Automatic partition detection মানেই 100% flash compatibility নয়।
+
+একই নামের TV Box হলেও board revision, SoC, storage layout, bootloader বা vendor configuration আলাদা হতে পারে।
+
+তাই অন্য Box-এ firmware flash করার আগে অবশ্যই hardware compatibility যাচাই করুন।
 
 বিশেষ করে:
 
 BOOTLOADER_REVIEW/
 
-এর files manually verify না করে flash করবেন না।
+এর files blindly flash করবেন না।
 
 ---
 
-📌 Quick Start
+🧰 Quick Start
 
-যদি সব আগে থেকেই setup করা থাকে:
+যদি সবকিছু আগে থেকেই installed থাকে:
 
 cd ~
-git clone https://github.com/YOUR-GITHUB-USERNAME/TVBoxFirmwareBackup.git
+git clone https://github.com/Sonaton11/TVBoxFirmwareBackup.git
 cd TVBoxFirmwareBackup
 chmod +x backup.sh
 termux-setup-storage
@@ -417,18 +521,18 @@ adb connect TV_BOX_IP:5555
 adb devices
 ./backup.sh
 
-Backup পাবেন:
+Backup পাওয়া যাবে:
 
 /sdcard/TVBoxFirmware/
 
 ---
 
-📝 Important Note
+📌 Project
 
-এই tool partition layout দেখে conservativeভাবে firmware নির্বাচন করে।
+GitHub Repository
 
-সব Android TV Box একই partition structure ব্যবহার করে না।
+"Sonaton11/TVBoxFirmwareBackup" (https://github.com/Sonaton11/TVBoxFirmwareBackup?utm_source=chatgpt.com)
 
-তাই automatic detection মানেই 100% flash compatibility নয়।
+📺 TV Box → 📱 Phone → 💻 PC
 
-PC-তে flash করার আগে source এবং target TV Box-এর hardware/board/revision অবশ্যই verify করতে হবে।
+Backup once. Verify carefully. Flash safely.
