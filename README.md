@@ -62,6 +62,7 @@ pkg update -y
 pkg upgrade -y
 pkg install -y git android-tools
 termux-setup-storage
+```
 
 "termux-setup-storage" চালানোর পরে Android permission চাইলে Allow চাপুন।
 
@@ -78,9 +79,10 @@ Phone storage-এর files/folders দেখা গেলে storage permission 
 নিচের command-টি একবারে Copy → Paste → Enter করুন:
 ```bash
 cd ~ &&
+```
 ```bash
 git clone https://github.com/Sonaton11/TVBoxFirmwareBackup.git && cd TVBoxFirmwareBackup && chmod +x backup.sh
-
+```
 সব ঠিক থাকলে repository folder-এর ভিতরে চলে যাবেন।
 
 ফাইল পরীক্ষা করুন:
@@ -110,11 +112,11 @@ TV Box IP:example :
 Termux-এ:
 ```bash
 adb connect 192.168.0.217:5555
-
+```
 তারপর:
 ```bash
 adb devices
-
+```
 সঠিকভাবে connected হলে:
 
 192.168.0.217:5555    device
@@ -130,19 +132,19 @@ adb devices
 চালান:
 ```bash
 adb shell
-
+```
 TV Box shell খুললে:
 ```bash
 exit
-
+```
 তারপর:
 ```bash
 adb devices
-
+```
 Device-এর পাশে অবশ্যই:
 ```bash
 device
-
+```
 থাকতে হবে।
 
 ---
@@ -152,9 +154,9 @@ device
 এই Tool protected firmware partitions পড়ার জন্য TV Box-এর root access ব্যবহার করে।
 
 Test করতে:
-
+```bash
 adb shell su -c id
-
+```
 সঠিক হলে এরকম দেখা যাবে:
 
 uid=0(root)
@@ -166,13 +168,13 @@ uid=0(root)
 💾 Step 6 — Firmware Backup শুরু করুন
 
 Repository folder-এ যান:
-
+```bash
 cd ~/TVBoxFirmwareBackup
-
+```
 তারপর:
-
+```bash
 ./backup.sh
-
+```
 এখন Tool automatically TV Box scan করবে।
 
 ---
@@ -398,33 +400,33 @@ TVBOX_YYYYMMDD_HHMMSS/
 🔎 Step 8 — Backup Check করুন
 
 Backup শেষ হলে:
-
+```bash
 ls /sdcard/TVBoxFirmware/
-
+```
 তারপর আপনার backup folder-এ যান:
-
+```bash
 cd /sdcard/TVBoxFirmware/TVBOX_YYYYMMDD_HHMMSS
-
+```
 📋 Backup Report
-
+```bash
 cat BACKUP_REPORT.txt
-
+```
 🔧 Hardware Information
-
+```bash
 cat HARDWARE.txt
-
+```
 💽 Partition List
-
+```bash
 cat partition-list.txt
-
+```
 ⚡ Flash Candidates
-
+```bash
 cat FLASH_CANDIDATES.txt
-
+```
 🔐 SHA256 Checksum
-
+```bash
 cat SHA256SUMS
-
+```
 ---
 
 💻 Step 9 — PC-তে Backup Copy করুন
@@ -436,14 +438,14 @@ TVBOX_YYYYMMDD_HHMMSS/
 Phone থেকে PC-তে copy করুন।
 
 বিশেষ করে এগুলো অবশ্যই রাখুন:
-
+```bash
 HARDWARE.txt
 partition-list.txt
 FIRMWARE_MANIFEST.txt
 FLASH_CANDIDATES.txt
 SHA256SUMS
 BACKUP_REPORT.txt
-
+```
 ---
 
 ⚡ Step 10 — PC থেকে Flash করার আগে
@@ -539,41 +541,41 @@ BOOTLOADER_REVIEW/
 🛠️ Quick Start
 
 যদি Termux setup আগে থেকেই করা থাকে:
-
+```bash
 cd ~ && git clone https://github.com/Sonaton11/TVBoxFirmwareBackup.git && cd TVBoxFirmwareBackup && chmod +x backup.sh
-
+```
 TV Box connect করুন:
-
+```bash
 adb connect TV_BOX_IP:5555
-
+```
 Check করুন:
-
+```bash
 adb devices
-
+```
 তারপর backup:
-
+```bash
 cd ~/TVBoxFirmwareBackup && ./backup.sh
-
+```
 Backup পাওয়া যাবে:
-
+```bash
 /sdcard/TVBoxFirmware/
-
+```
 ---
 
 🔄 Update Tool
 
 Repository থেকে নতুন version নেওয়ার জন্য:
-
+```bash
 cd ~/TVBoxFirmwareBackup && git pull
-
+```
 তারপর:
-
+```bash
 chmod +x backup.sh
-
+```
 এবং backup চালান:
-
+```bash
 ./backup.sh
-
+```
 ---
 
 📌 Important Notes
@@ -603,7 +605,7 @@ TVBoxFirmwareBackup
 
 GitHub Repository:
 
-"Sonaton11/TVBoxFirmwareBackup" (https://github.com/Sonaton11/TVBoxFirmwareBackup?utm_source=chatgpt.com)
+"Sonaton11/TVBoxFirmwareBackup" (https://github.com/Sonaton11/TVBoxFirmwareBackup)
 
 ---
 
