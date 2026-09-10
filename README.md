@@ -67,9 +67,9 @@ termux-setup-storage
 "termux-setup-storage" চালানোর পরে Android permission চাইলে Allow চাপুন।
 
 তারপর পরীক্ষা করুন:
-
+```bash
 ls /sdcard
-
+```
 Phone storage-এর files/folders দেখা গেলে storage permission ঠিক আছে।
 
 ---
@@ -78,17 +78,14 @@ Phone storage-এর files/folders দেখা গেলে storage permission 
 
 নিচের command-টি একবারে Copy → Paste → Enter করুন:
 ```bash
-cd ~ &&
-```
-```bash
-git clone https://github.com/Sonaton11/TVBoxFirmwareBackup.git && cd TVBoxFirmwareBackup && chmod +x backup.sh
+cd ~ &&git clone https://github.com/Sonaton11/TVBoxFirmwareBackup.git && cd TVBoxFirmwareBackup && chmod +x backup.sh
 ```
 সব ঠিক থাকলে repository folder-এর ভিতরে চলে যাবেন।
 
 ফাইল পরীক্ষা করুন:
-
+```bash
 ls
-
+```
 দেখতে পাবেন:
 
 backup.sh
