@@ -54,15 +54,16 @@ Backup সরাসরি Phone-এর storage-এ সংরক্ষণ হব�
 
 🚀 Step 1 — Termux Setup
 
-Termux খুলে নিচের command-টি একবারে Copy → Paste → Enter করুন:
+📦 Termux Setup
 
-pkg update -y && pkg upgrade -y && pkg install -y git android-tools && termux-setup-storage
+Termux খুলে নিচের একটি Code Box-এর সব command একসাথে Copy করে Paste করুন:
 
-📱 Storage Permission
+pkg update -y
+pkg upgrade -y
+pkg install -y git android-tools
+termux-setup-storage
 
-"termux-setup-storage" চালানোর পরে Android permission চাইলে:
-
-Allow চাপুন।
+"termux-setup-storage" চালানোর পরে Android permission চাইলে Allow চাপুন।
 
 তারপর পরীক্ষা করুন:
 
